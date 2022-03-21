@@ -1,0 +1,16 @@
+.form-input {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 16px 0;
+}
+
+.input {
+	padding: 10px 25px;
+	outline: 0;
+
+	&::placeholder {
+		color: black;
+	}
+}

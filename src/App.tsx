@@ -1,10 +1,10 @@
 import { Provider } from 'react-redux'
 
-import './Assets/style.scss';
+import './assets/style.scss';
 
-import Form from './Components/Form/Form'
-import Rate from './Components/Rate/Rate'
-import {store} from "./services/Store/store";
+import Form from './components/Form/Form'
+import Rate from './components/Rate/Rate'
+import {store} from "./services/store/store";
 
 const App = () => {
 	return (

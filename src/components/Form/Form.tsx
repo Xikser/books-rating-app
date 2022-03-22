@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {connect, useDispatch} from "react-redux";
-import { addRate } from "../../services/Actions/rateActions";
+import { addRate } from "../../services/actions/rateActions";
 
 import Input from '../Input/Input'
 

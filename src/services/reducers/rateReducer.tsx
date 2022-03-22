@@ -1,4 +1,4 @@
-import { ADD } from '../Actions/rateActions'
+import { ADD } from '../actions/rateActions'
 
 export const rateReducer = (state = [], action: any) => {
 	console.log(action.payload)

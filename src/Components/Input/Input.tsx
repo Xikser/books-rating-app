@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import './style.scss'
 
-const Input = props => {
+const Input = (props: any) => {
 	const {type = 'text', placeholder, label, onChange, value} = props
 
 	return (

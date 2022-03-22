@@ -1,11 +1,13 @@
 import {connect} from 'react-redux'
 
-const Rate = ({rates}) => {
+import './style.scss'
+
+const Rate = ({rates}: {rates: any}) => {
 	console.log(rates)
 
 	if (rates) {
 		return (
-			<div>
+			<div className='rate-box'>
 				<p>Author: {rates[0]?.author}</p>
 				<p>Rate: {rates[0]?.rate}</p>
 				<p>Comment: {rates[0]?.comment}</p>
@@ -14,10 +16,10 @@ const Rate = ({rates}) => {
 	}
 };
 
-const connectReduxToProps = store => ({
+const connectReduxToProps = (store: any) => ({
 	rates: store.rates
 })
 
-const RateConsumer = connect(connectReduxToProps)(Rate)
+const RateConsumer = connect(connectReduxToProps)(Rate as any)
 
 export default RateConsumer;

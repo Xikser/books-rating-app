@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {connect, useDispatch} from "react-redux";
-import { addRate } from "../../Services/Actions/rateAction";
+import { addRate } from "../../services/Actions/rateActions";
 
 import Input from '../Input/Input'
 
@@ -18,7 +18,7 @@ const Form = (
 			placeholder: 'Author name',
 			inputName: 'Author',
 			label: 'Author',
-			onChange: (event) => {
+			onChange: (event: any) => {
 				setAuthorInput(event.target.value)
 			}
 		},
@@ -27,7 +27,7 @@ const Form = (
 			placeholder: 'Your rating (0 - 5)',
 			inputName: 'Rate',
 			label: 'Rate',
-			onChange: (event) => {
+			onChange: (event: any) => {
 				setRateInput(event.target.value)
 			}
 		},
@@ -36,7 +36,7 @@ const Form = (
 			placeholder: 'Comment',
 			inputName: 'Comment',
 			label: 'Comment',
-			onChange: (event) => {
+			onChange: (event: any) => {
 				setCommentInput(event.target.value)
 			}
 		},
@@ -48,7 +48,7 @@ const Form = (
 	const [rateInput, setRateInput] = useState('')
 	const [commentInput, setCommentInput] = useState('')
 
-	const handleOnSubmit = event => {
+	const handleOnSubmit = (event: any) => {
 		event.preventDefault()
 
 		if (!authorInput.length) {
@@ -87,7 +87,6 @@ const Form = (
 								onChange={input.onChange}
 								name={input.inputName}
 								label={input.label}
-								value={input.value}
 							/>
 						)
 					})

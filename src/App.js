@@ -4,7 +4,7 @@ import './Assets/style.scss';
 
 import Form from './Components/Form/Form'
 import Rate from './Components/Rate/Rate'
-import {store} from "./Services/Store/store";
+import {store} from "./services/Store/store";
 
 const App = () => {
 	return (
@@ -13,7 +13,7 @@ const App = () => {
 				<header className="header">
 					<h1>Rate your favorite book</h1>
 				</header>
-				<main>
+				<main className='main'>
 					<Form/>
 					<Rate />
 				</main>

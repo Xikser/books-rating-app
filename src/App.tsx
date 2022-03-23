@@ -1,4 +1,5 @@
 import { Provider } from 'react-redux'
+import { useState } from 'react'
 
 import './assets/style.scss';
 
@@ -7,6 +8,8 @@ import Rate from './components/Rate/Rate'
 import {store} from "./services/store/store";
 
 const App = () => {
+	const [rateVisibility, setRateVisibility] = useState<boolean>(false)
+
 	return (
 		<Provider store={store}>
 			<div className="app">
@@ -14,8 +17,11 @@ const App = () => {
 					<h1>Rate your favorite book</h1>
 				</header>
 				<main className='main'>
-					<Form/>
-					<Rate />
+					<Form onFormSend={setRateVisibility} />
+
+					{
+						rateVisibility && <Rate />
+					}
 				</main>
 			</div>
 		</Provider>

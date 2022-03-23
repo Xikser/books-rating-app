@@ -1,100 +1,98 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {connect, useDispatch} from "react-redux";
-import { addRate } from "../../services/actions/rateActions";
+import {addRate} from "../../services/actions/rateActions";
 
 import Input from '../Input/Input'
 
+import {IRateObject} from "./interfaces/IRateObject";
+import {IFormProps} from "./interfaces/IFormProps";
+
 import './style.scss'
 
-const Form = (
-	author = '',
-	comment = '',
-	id = null,
-	rate = 0
-) => {
-	const inputs = [
-		{
-			type: 'text',
-			placeholder: 'Author name',
-			inputName: 'Author',
-			label: 'Author',
-			onChange: (event: any) => {
-				setAuthorInput(event.target.value)
-			}
-		},
-		{
-			type: 'number',
-			placeholder: 'Your rating (0 - 5)',
-			inputName: 'Rate',
-			label: 'Rate',
-			onChange: (event: any) => {
-				setRateInput(event.target.value)
-			}
-		},
-		{
-			type: 'text',
-			placeholder: 'Comment',
-			inputName: 'Comment',
-			label: 'Comment',
-			onChange: (event: any) => {
-				setCommentInput(event.target.value)
-			}
-		},
-	]
+const Form = ({
+	              username = '',
+	              comment = '',
+	              id,
+	              rate = 0,
+	              onFormSend = () => {
+	              }
+              }: IFormProps) => {
 
 	const dispatch = useDispatch();
 
-	const [authorInput, setAuthorInput] = useState('')
+	const [usernameInput, setUsernameInput] = useState('')
 	const [rateInput, setRateInput] = useState('')
 	const [commentInput, setCommentInput] = useState('')
+	const [inputValidationResult, setInputValidationResult] = useState<object>({})
+
+	const isValidForm = (): boolean => {
+		let result = true
+		Object.values(inputValidationResult).forEach(validationResult => result &&= validationResult)
+		return result
+	}
 
 	const handleOnSubmit = (event: any) => {
 		event.preventDefault()
 
-		if (!authorInput.length) {
-			console.log('author')
-			return
-		}
-		if (!rateInput.length) {
-			console.log('rate')
-			return
-		}
-		if (!commentInput.length) {
-			console.log('comment')
-			return
-		}
-
-		const rateObject = {
-			author: authorInput,
+		const rateObject: IRateObject = {
+			username: usernameInput,
 			comment: commentInput,
 			rate: Number(rateInput)
 		}
 
+		onFormSend(true)
 		dispatch(addRate(rateObject))
-		console.log(rateObject)
 	}
 
-	return (
-		<form onSubmit={handleOnSubmit}>
-			<div className='input-container'>
-				{
-					inputs.map((input, i) => {
-						return (
-							<Input
-								key={i}
-								type={input.type}
-								placeholder={input.placeholder}
-								onChange={input.onChange}
-								name={input.inputName}
-								label={input.label}
-							/>
-						)
-					})
-				}
+	const x = useCallback(value => {
+		setUsernameInput(value)
+	}, [usernameInput])
 
-				<button type='submit'>Submit rate</button>
-			</div>
-		</form>
+	return (
+		<>
+			<form onSubmit={handleOnSubmit}>
+				<div className='input-container'>
+					<Input
+						id={0}
+						inputType={'text'}
+						placeholder={'Username'}
+						onChange={x}
+						name={'username'}
+						label={'Username'}
+						minLength={3}
+						maxLength={15}
+						regexp={/^\w+$/}
+						setInputValidationResults={setInputValidationResult}
+					/>
+					<Input
+						id={1}
+						inputType={'number'}
+						placeholder={'Your rate 0 - 5'}
+						onChange={setRateInput}
+						name={'rate'}
+						label={'Rate'}
+						minLength={1}
+						maxLength={1}
+						regexp={/^\D+$/}
+						setInputValidationResults={setInputValidationResult}
+					/>
+					<Input
+						id={2}
+						inputType={'text'}
+						placeholder={'Comment'}
+						onChange={setCommentInput}
+						name={'comment'}
+						label={'Comment'}
+						minLength={20}
+						maxLength={250}
+						regexp={/^\W+$/}
+						setInputValidationResults={setInputValidationResult}
+					/>
+
+					<button type='submit' disabled={!isValidForm()}>Submit rate</button>
+				</div>
+			</form>
+		</>
 	)
 }
 
